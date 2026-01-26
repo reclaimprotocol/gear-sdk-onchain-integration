@@ -12,7 +12,7 @@ edition.workspace = true
 publish.workspace = true
 
 [lib]
-crate-type = ["rlib", "cdylib"]
+crate-type = ["lib"]
 
 [dependencies]
 gstd.workspace = true
@@ -21,9 +21,8 @@ sha2 = {version = "0.10.6", default-features = false}
 sha3 = { version = "0.10.8",  default-features = false}
 hex = {version = "0.4.3", default-features = false, features=["alloc"]}
 ecdsa = {version = "0.16.9", default-features = false}
-keccak-hash = {version = "0.10.0", default-features = false}
 
-k256 = {version = "0.13.3", default-features = false, features = ["ecdsa-core", "ecdsa", "sha256","schnorr"]}
+k256 = {version = "0.13.3", default-features = false, features = ["ecdsa-core", "ecdsa", "sha256"]}
 rand_core ={version = "0.6.4", default-features = false}
 digest = {version = "0.10", default-features = false }
 
@@ -42,11 +41,11 @@ tokio.workspace = true
 members = ["xtask"]
 
 [workspace.dependencies]
-gstd = "1.3.0"
-gmeta = "1.3.0"
-gear-wasm-builder = "1.3.0"
-gtest = "1.3.0"
-gclient = "1.3.0"
+gstd = "=1.6.2"
+gmeta = "=1.6.2"
+gear-wasm-builder = "=1.6.2"
+gtest = "=1.6.2"
+gclient = "=1.6.2"
 reclaim-io.path = "io"
 tokio = "1"
 xshell = "0.2"

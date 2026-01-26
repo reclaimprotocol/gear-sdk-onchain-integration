@@ -10,11 +10,14 @@ fn proof_full_cycle() {
 
     system.init_logger();
 
+    // Mint balance for the sender (user 0)
+    system.mint_to(0, 100_000_000_000_000);
+
     let program = Program::current(&system);
 
-    let mut result = program.send(0, ReAction::Init {});
-
-    assert!(!result.main_failed());
+    let msg_id = program.send(0, ReAction::Init {});
+    let result = system.run_next_block();
+    assert!(result.succeed.contains(&msg_id));
 
     let mut witness = Vec::new();
     let wit = Witness {
@@ -23,15 +26,15 @@ fn proof_full_cycle() {
     };
     witness.push(wit);
 
-    result = program.send(
+    let msg_id = program.send(
         0,
         ReAction::AddEpoch {
             witness,
             minimum_witness: 1,
         },
     );
-
-    assert!(!result.main_failed());
+    let result = system.run_next_block();
+    assert!(result.succeed.contains(&msg_id));
 
     let claim_info = ClaimInfo {
         provider: "http".to_string(),
@@ -61,10 +64,10 @@ fn proof_full_cycle() {
         signedClaim: signed_claim,
     };
 
-    result = program.send(0, ReAction::VerifyProof(proof));
-    println!("{:?}",&result.log());
-
-    assert!(!result.main_failed());
+    let msg_id = program.send(0, ReAction::VerifyProof(proof));
+    let result = system.run_next_block();
+    println!("{:?}", &result.log());
+    assert!(result.succeed.contains(&msg_id));
 }
 
 #[tokio::test]

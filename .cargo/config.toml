@@ -8,6 +8,11 @@ rustflags = [
     "-Wrust-2018-idioms",
     "-Wunused",
 ]
+
+[target.wasm32-unknown-unknown]
+rustflags = [
+    "-C", "target-feature=-bulk-memory,-sign-ext,-mutable-globals",
+]
 rustdocflags = [
     "-Dwarnings",
     "--default-theme=ayu",
