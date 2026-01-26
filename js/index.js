@@ -1,3 +1,5 @@
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
 import { GearApi, GearKeyring, ProgramMetadata } from '@gear-js/api';
 import * as fs from "fs";
 import dotenv from "dotenv";
